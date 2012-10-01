@@ -6,6 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+	"dependencies": {
+		"socket.io": "0.9.10",
+		"express": "*",
+		"jade": "*"
+	},
   "repository": {
     "type": "git",
     "url": "https://github.com/breiko83/mice.js.git"

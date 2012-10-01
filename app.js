@@ -46,24 +46,19 @@ io.sockets.on('connection', function (socket) {
 	//bid
 	socket.on('pos',function(data){
 		console.log(data);
-		io.sockets.emit('move',{x:data.x,y:data.y});
+		io.sockets.emit('move',{id:data.id ,x:data.x,y:data.y});
 	});
-	
-	console.log("Someone connected");
 	
   sockets.push(socket);
 
-  io.sockets.emit('nusers',{val:sockets.length});
-  console.log('total user: '+sockets.length);
-
   socket.on('disconnect', function () {
-	
 		var index = sockets.indexOf(socket);
 		sockets.splice(index,1);
-		io.sockets.emit('nusers',{val:sockets.length});
-	
-    io.sockets.emit('user disconnected');
-		console.log('total user: '+sockets.length);
+    io.sockets.emit('logout',{id:socket.id});
   });
+	
+	for (var s in sockets){
+		io.sockets.emit('login',{id:sockets[s].id});	
+	}
 
 });

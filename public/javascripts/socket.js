@@ -1,9 +1,20 @@
 var socket = io.connect();
 socket.on('connect', function () {
+	
+	socket.on('logout',function(data){
+		$("#cursor_"+data.id).remove();
+	});
+	
+	socket.on('login',function(data){
+		if($('#cursor_'+data.id).length == 0)
+			$("#playground").append('<img class="cursor" id="cursor_'+data.id+'" src="/images/cursor.png" />');
+	});
+	
 	socket.on('move',function(data){
 		var x = data.x;
 		var y = data.y;
-		$("#cursor").css('margin-left',x+"px");
-		$("#cursor").css('margin-top',y+"px");
+		var id = data.id;
+		$("#cursor_"+id).css('left',x+"px");
+		$("#cursor_"+id).css('top',y+"px");
 	});
 });
