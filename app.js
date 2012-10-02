@@ -54,11 +54,11 @@ io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function () {
 		var index = sockets.indexOf(socket);
 		sockets.splice(index,1);
-    io.sockets.emit('logout',{id:socket.id});
+    io.sockets.emit('logout',{id:socket.id,n_users:sockets.length});
   });
 	
 	for (var s in sockets){
-		io.sockets.emit('login',{id:sockets[s].id});	
+		io.sockets.emit('login',{id:sockets[s].id,n_users:sockets.length});	
 	}
 
 });
